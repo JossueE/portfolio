@@ -10,7 +10,6 @@ import {
   CircuitBoard,
 } from "lucide-react";
 import { FloatingShapes } from "@/components/FloatingShapes";
-import { FloatingKeywords } from "@/components/FloatingKeywords";
 import { GlassPanel } from "@/components/GlassPanel";
 
 const STATS = [
@@ -46,7 +45,6 @@ export function Hero() {
       className="relative isolate flex min-h-[92svh] w-full items-center overflow-hidden px-6 pb-24 pt-36 sm:px-8 md:min-h-screen md:pt-44 lg:px-12"
     >
       <FloatingShapes />
-      <FloatingKeywords />
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-10">
         <motion.div
