@@ -1,13 +1,11 @@
-import { Navbar } from "@/components/Navbar";
-import { Hero } from "@/components/Hero";
-import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
-import { ProfessionalExperience } from "@/components/ProfessionalExperience";
-import { Certifications } from "@/components/Certifications";
-import { Education } from "@/components/Education";
-import { Skills } from "@/components/Skills";
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/sections/Navbar";
+import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
+import { ProfessionalExperience } from "@/components/sections/ProfessionalExperience";
+import { Projects } from "@/components/sections/Projects";
+import { Certifications } from "@/components/sections/Certifications";
+import { Skills } from "@/components/sections/Skills";
+import { ContactFooter } from "@/components/sections/ContactFooter";
 
 export default function HomePage() {
   return (
@@ -15,13 +13,11 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <About />
-      <Projects />
       <ProfessionalExperience />
+      <Projects />
       <Certifications />
-      <Education />
       <Skills />
-      <Contact />
-      <Footer />
+      <ContactFooter/>
     </main>
   );
 }

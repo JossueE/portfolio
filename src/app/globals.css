@@ -2,32 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =============================================
+   Color system -- RGB channels for Tailwind alpha
+   ============================================= */
 :root {
   color-scheme: dark;
-  --bg-0: #07070a;
-  --bg-1: #0d0d11;
-  --bg-2: #14141a;
-  --fg-0: #f4f4f5;
-  --fg-1: #b9b9c0;
-  --fg-2: #7d7d85;
+
+  --fg-rgb: 244 244 245;
+  --muted-rgb: 178 178 186;
+  --dim-rgb: 108 108 116;
+  --surface-rgb: 255 255 255;
+  --edge-rgb: 255 255 255;
+  --accent-rgb: 34 211 238;
+
+  --bg-0: #030305;
+  --bg-1: #09090c;
+  --bg-2: #111115;
   --line: rgba(255, 255, 255, 0.08);
 }
 
 .light {
   color-scheme: light;
-  --bg-0: #f6f6f7;
-  --bg-1: #ececee;
-  --bg-2: #e2e2e5;
-  --fg-0: #0d0d11;
-  --fg-1: #3a3a40;
-  --fg-2: #6b6b72;
+
+  --fg-rgb: 12 12 18;
+  --muted-rgb: 58 58 68;
+  --dim-rgb: 108 108 116;
+  --surface-rgb: 0 0 0;
+  --edge-rgb: 0 0 0;
+  --accent-rgb: 8 145 178;
+
+  --bg-0: #f5f5f7;
+  --bg-1: #eaeaec;
+  --bg-2: #e0e0e4;
   --line: rgba(0, 0, 0, 0.08);
 }
 
 html,
 body {
   background: var(--bg-0);
-  color: var(--fg-0);
+  color: rgb(var(--fg-rgb));
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont,
     "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", "Helvetica Neue",
     Helvetica, Arial, sans-serif;
@@ -58,19 +71,14 @@ html {
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
+  background: rgb(var(--accent-rgb) / 0.22);
+  color: inherit;
 }
 
-.light ::selection {
-  background: rgba(0, 0, 0, 0.12);
-  color: #000;
-}
-
-/* Premium scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -78,30 +86,32 @@ html {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.16),
-    rgba(255, 255, 255, 0.06)
+    rgb(var(--accent-rgb) / 0.40),
+    rgb(var(--accent-rgb) / 0.15)
   );
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
-.light ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.18),
-    rgba(0, 0, 0, 0.08)
-  );
-  background-clip: padding-box;
-}
 
-/* Liquid glass surface */
+/* =============================================
+   Component layer
+   ============================================= */
 @layer components {
+
+  /* Liquid glass surface -- used by Navbar */
   .liquid-glass {
-    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-glass backdrop-blur-2xl;
+    @apply relative overflow-hidden rounded-3xl backdrop-blur-2xl;
+    border: 1px solid rgb(var(--edge-rgb) / 0.10);
+    background-color: rgb(var(--surface-rgb) / 0.04);
+    box-shadow:
+      0 1px 0 0 rgb(var(--surface-rgb) / 0.10) inset,
+      0 0 0 1px rgb(var(--surface-rgb) / 0.05),
+      0 30px 60px -20px rgba(0, 0, 0, 0.55),
+      0 10px 25px -10px rgba(0, 0, 0, 0.5);
   }
-  .light .liquid-glass {
-    @apply border-black/10 bg-black/[0.03] shadow-glass-sm;
-  }
+
+  /* Cyan shimmer edge */
   .glass-edge::before {
     content: "";
     position: absolute;
@@ -110,34 +120,27 @@ html {
     padding: 1px;
     background: linear-gradient(
       140deg,
-      rgba(255, 255, 255, 0.35),
-      rgba(255, 255, 255, 0.04) 30%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.12) 100%
+      rgb(var(--accent-rgb) / 0.22),
+      rgb(var(--surface-rgb) / 0.06) 30%,
+      transparent 60%,
+      rgb(var(--surface-rgb) / 0.10) 100%
     );
     -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
   }
-  .light .glass-edge::before {
-    background: linear-gradient(
-      140deg,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.04) 30%,
-      rgba(0, 0, 0, 0) 60%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-  }
+
+  /* Sheen on hover */
   .glass-sheen::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
       120deg,
-      rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.08) 45%,
-      rgba(255, 255, 255, 0) 60%
+      transparent 30%,
+      rgb(var(--accent-rgb) / 0.06) 45%,
+      transparent 60%
     );
     transform: translateX(-100%);
     transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -147,43 +150,75 @@ html {
     transform: translateX(100%);
   }
 
+  /* Standard chip */
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium tracking-wide text-white/80 backdrop-blur-md;
-  }
-  .light .chip {
-    @apply border-black/10 bg-black/[0.04] text-black/80;
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide backdrop-blur-md;
+    border: 1px solid rgb(var(--edge-rgb) / 0.10);
+    background-color: rgb(var(--surface-rgb) / 0.04);
+    color: rgb(var(--fg-rgb) / 0.75);
   }
 
+  /* Accent chip -- cyan tint */
+  .chip-accent {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide backdrop-blur-md;
+    border: 1px solid rgb(var(--accent-rgb) / 0.30);
+    background-color: rgb(var(--accent-rgb) / 0.10);
+    color: rgb(var(--accent-rgb));
+  }
+
+  /* Glass button */
   .btn-glass {
-    @apply relative inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-sm font-medium text-white/90 shadow-glass-sm backdrop-blur-xl transition-all hover:bg-white/[0.10] hover:text-white active:scale-[0.98];
+    @apply relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium backdrop-blur-xl transition-all active:scale-[0.98];
+    border: 1px solid rgb(var(--edge-rgb) / 0.15);
+    background-color: rgb(var(--surface-rgb) / 0.06);
+    color: rgb(var(--fg-rgb) / 0.88);
+    box-shadow:
+      0 1px 0 0 rgb(var(--surface-rgb) / 0.08) inset,
+      0 0 0 1px rgb(var(--surface-rgb) / 0.04),
+      0 12px 30px -12px rgba(0, 0, 0, 0.45);
   }
-  .light .btn-glass {
-    @apply border-black/15 bg-black/[0.05] text-black/85 hover:bg-black/[0.08] hover:text-black;
+  .btn-glass:hover {
+    background-color: rgb(var(--surface-rgb) / 0.10);
+    color: rgb(var(--fg-rgb));
+    border-color: rgb(var(--edge-rgb) / 0.22);
   }
 
+  /* Solid CTA -- Cyan */
   .btn-solid {
-    @apply inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black shadow-[0_8px_30px_-8px_rgba(255,255,255,0.45)] transition-all hover:shadow-[0_12px_40px_-8px_rgba(255,255,255,0.55)] active:scale-[0.98];
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-black transition-all active:scale-[0.98];
+    background-color: rgb(var(--accent-rgb));
+    box-shadow: 0 8px 30px -8px rgb(var(--accent-rgb) / 0.55);
   }
-  .light .btn-solid {
-    @apply bg-black text-white shadow-[0_8px_30px_-12px_rgba(0,0,0,0.45)] hover:shadow-[0_12px_40px_-10px_rgba(0,0,0,0.5)];
+  .btn-solid:hover {
+    box-shadow: 0 12px 40px -8px rgb(var(--accent-rgb) / 0.70);
+    filter: brightness(1.08);
   }
 
+  /* Section padding */
   .section-pad {
     @apply px-6 py-24 sm:px-8 md:py-32 lg:px-12;
   }
 
+  /* Display title -- subtle cyan gradient */
   .display-title {
-    @apply text-balance bg-gradient-to-b from-white via-white to-white/60 bg-clip-text text-transparent;
-  }
-  .light .display-title {
-    @apply from-black via-black to-black/60;
+    @apply text-balance bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--fg-rgb)) 0%,
+      rgb(var(--fg-rgb) / 0.88) 55%,
+      rgb(var(--accent-rgb) / 0.72) 100%
+    );
   }
 
+  /* Hairline divider */
   .hairline {
-    @apply h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent;
-  }
-  .light .hairline {
-    @apply via-black/15;
+    @apply h-px w-full;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(var(--edge-rgb) / 0.15),
+      transparent
+    );
   }
 }
 

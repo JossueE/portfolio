@@ -20,7 +20,7 @@ const siteUrl = "https://jossueespinoza.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Jossue Espinoza | Robotics & Autonomous Systems Portfolio",
+    default: "Jossue Espinoza | Robotics and Autonomous Systems Portfolio",
     template: "%s | Jossue Espinoza",
   },
   description:
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: "Jossue Espinoza | Robotics & Autonomous Systems Portfolio",
+    title: "Jossue Espinoza | Robotics and Autonomous Systems Portfolio",
     description:
       "Building intelligent robots through ROS 2, simulation, path planning, control systems, and local AI.",
     siteName: "Jossue Espinoza",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jossue Espinoza | Robotics & Autonomous Systems Portfolio",
+    title: "Jossue Espinoza | Robotics and Autonomous Systems Portfolio",
     description:
       "Building intelligent robots through ROS 2, simulation, path planning, control systems, and local AI.",
   },
@@ -65,8 +65,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#07070a" },
-    { media: "(prefers-color-scheme: light)", color: "#f6f6f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#030305" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
   ],
 };
 
@@ -78,9 +78,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${sans.variable} ${mono.variable}`}
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable}`}
     >
-      <body className="min-h-screen bg-[var(--bg-0)] font-sans text-[var(--fg-0)] antialiased">
+      <head>
+        {/* Inline theme detection -- runs before paint to avoid flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s||(p?'dark':'light');if(t==='light')document.documentElement.classList.add('light');}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-[var(--bg-0)] font-sans text-[rgb(var(--fg-rgb))] antialiased">
         {children}
       </body>
     </html>
