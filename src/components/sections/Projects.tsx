@@ -82,7 +82,7 @@ export function Projects() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search projects, tools, or tags..."
-            className="liquid-glass glass-edge h-11 w-full rounded-full px-11 text-sm text-fg/85 outline-none transition-colors placeholder:text-muted/45 focus:border-accent/30 focus:bg-accent/5"
+            className="liquid-glass glass-edge h-11 w-full rounded-full px-11 text-sm text-fg/85 outline-none transition-colors placeholder:text-muted/45 focus:border-white/25 focus:bg-white/[0.07]"
           />
         </div>
 
