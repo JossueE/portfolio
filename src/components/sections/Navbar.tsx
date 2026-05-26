@@ -16,32 +16,41 @@ function useActiveSection(ids: readonly string[]) {
   const [active, setActive] = React.useState<string>(ids[0]);
 
   React.useEffect(() => {
-    const visible = new Map<string, number>();
+    let frame = 0;
 
-    const observers = ids.map((id) => {
-      const el = document.querySelector(id);
-      if (!el) return null;
+    const update = () => {
+      const marker = Math.min(180, window.innerHeight * 0.28);
+      let current = ids[0];
 
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            visible.set(id, entry.boundingClientRect.top);
-          } else {
-            visible.delete(id);
-          }
-          if (visible.size > 0) {
-            const sorted = [...visible.entries()].sort((a, b) => a[1] - b[1]);
-            setActive(sorted[0][0]);
-          }
-        },
-        { threshold: 0.25, rootMargin: "-60px 0px -35% 0px" }
-      );
+      ids.forEach((id) => {
+        const el = document.querySelector(id);
+        if (!el) return;
 
-      obs.observe(el);
-      return obs;
-    });
+        if (el.getBoundingClientRect().top <= marker) {
+          current = id;
+        }
+      });
 
-    return () => observers.forEach((o) => o?.disconnect());
+      setActive(current);
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
   }, [ids]);
 
   return active;

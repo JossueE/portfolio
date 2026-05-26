@@ -30,17 +30,19 @@ function normalize(skill: RawSkill): { name: string; level?: number } {
 export function Skills() {
   return (
     <section id="skills" className="section-pad relative" aria-label="Skills">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-16">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
         {/* Header mínimo, consistente con el resto de la página */}
         <div className="flex flex-col gap-6">
-          <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/50">
+          <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60">
             <span className="size-1 rounded-full bg-accent/70" />
             Skills
           </span>
-          <h2 className="max-w-3xl text-balance text-3xl font-medium tracking-tight text-fg sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-            The stack behind the robots.{" "}
-            <span className="text-muted/45">From kernel to LLM.</span>
-          </h2>
+          <div className="flex max-w-3xl flex-col gap-5">
+            <h2 className="text-balance text-4xl font-medium tracking-tight text-fg sm:text-5xl lg:text-6xl lg:leading-[1.04]">
+              The stack behind the robots.{" "}
+              <span className="text-muted/45">From kernel to LLM.</span>
+            </h2>
+          </div>
         </div>
 
         {/* Dominios como filas grandes, no tarjetas apretadas */}
@@ -57,7 +59,7 @@ export function Skills() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.06 }}
                 className={`grid grid-cols-1 gap-6 py-10 lg:grid-cols-[280px_1fr] lg:gap-12 ${
-                  isLast ? "" : "border-b border-edge/10"
+                  isLast ? "" : "border-b border-edge/20"
                 }`}
               >
                 {/* Columna izquierda: dominio + descripción */}

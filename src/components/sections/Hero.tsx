@@ -181,7 +181,7 @@ export function Hero() {
         className="absolute bottom-8 left-5 z-40 flex items-center gap-4 text-xs font-medium text-white/80 sm:left-8 sm:gap-5 sm:text-sm lg:left-12"
       >
         <a
-          href="https://github.com/"
+          href="https://github.com/JossueE"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-1.5 transition-colors hover:text-white uppercase"
@@ -192,7 +192,7 @@ export function Hero() {
           </span>
         </a>
         <a
-          href="https://linkedin.com/"
+          href="https://www.linkedin.com/in/jossuee"
           target="_blank"
           rel="noopener noreferrer"
           className="group flex items-center gap-1.5 transition-colors hover:text-white uppercase"
@@ -204,7 +204,7 @@ export function Hero() {
         </a>
 
         <a
-          href="mailto:jossue@example.com"
+          href="mailto:kadavetar10@gmail.com"
           className="group flex items-center gap-1.5 transition-colors hover:text-white uppercase"
         >
           Email

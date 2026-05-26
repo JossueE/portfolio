@@ -42,22 +42,23 @@ export function Certifications() {
       className="section-pad relative"
       aria-label="Certifications"
     >
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-14">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-14">
         {/* Header mínimo, consistente con el resto */}
         <div className="flex flex-col gap-6">
-          <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/50">
+          <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60">
             <span className="size-1 rounded-full bg-accent/70" />
             Certifications
           </span>
-          <h2 className="max-w-3xl text-balance text-3xl font-medium tracking-tight text-fg sm:text-4xl lg:text-5xl lg:leading-[1.1]">
-            Certifications &amp; development.
-          </h2>
+          <div className="flex max-w-3xl flex-col gap-5">
+            <h2 className="text-balance text-4xl font-medium tracking-tight text-fg sm:text-5xl lg:text-6xl lg:leading-[1.04]">
+              Certifications &amp; development.
+            </h2>
+          </div>
         </div>
 
         {/* Certificaciones como filas editoriales clicables */}
-        <div className="flex flex-col">
+        <div className="grid grid-cols-1 gap-5">
           {CERTIFICATIONS.map((cert, index) => {
-            const isLast = index === CERTIFICATIONS.length - 1;
             return (
               <motion.a
                 key={cert.title}
@@ -68,9 +69,7 @@ export function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
-                className={`group grid grid-cols-1 gap-6 py-10 sm:grid-cols-[200px_1fr] sm:gap-10 ${
-                  isLast ? "" : "border-b border-edge/10"
-                }`}
+                className="liquid-glass glass-edge group grid grid-cols-1 gap-6 overflow-hidden rounded-[1.75rem] p-5 transition-all duration-500 hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] sm:grid-cols-[200px_1fr] sm:gap-10 sm:p-6"
               >
                 {/* Preview del certificado — discreto, sin gradientes */}
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-edge/10 bg-surface/[0.03] sm:aspect-[3/4] lg:aspect-[4/3]">
@@ -79,7 +78,7 @@ export function Certifications() {
                     alt={`${cert.title} preview`}
                     fill
                     sizes="(min-width: 640px) 200px, 100vw"
-                    className="object-contain p-3 opacity-85 transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                    className="object-contain p-3 opacity-85 transition-transform duration-700 group-hover:scale-[1.04]"
                     priority={index === 0}
                   />
                 </div>
@@ -104,9 +103,9 @@ export function Certifications() {
                   </p>
 
                   {/* Indicador de enlace, tipográfico */}
-                  <span className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-fg/60 transition-colors group-hover:text-accent">
+                  <span className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-fg/60">
                     View certificate
-                    <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <ArrowUpRight className="size-4" />
                   </span>
                 </div>
               </motion.a>
