@@ -47,9 +47,15 @@ export function Projects() {
           </span>
 
           <div className="flex max-w-3xl flex-col gap-5">
-            <h2 className="text-balance text-4xl font-medium tracking-tight text-fg sm:text-5xl lg:text-6xl lg:leading-[1.04]">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+              className="text-balance text-4xl font-medium tracking-tight text-fg sm:text-5xl lg:text-6xl lg:leading-[1.04]"
+            >
               Selected work in robotics &amp; autonomy
-            </h2>
+            </motion.h2>
             <p className="text-pretty text-base leading-relaxed text-muted/70 sm:text-lg">
               Each project below is a full stack, from sensors to behavior,
               built with ROS 2, simulation, control, and AI components.
