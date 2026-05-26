@@ -57,18 +57,20 @@ export function Certifications() {
         </div>
 
         {/* Certificaciones como filas editoriales clicables */}
-        <div className="grid grid-cols-1 gap-5">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-5"
+        >
           {CERTIFICATIONS.map((cert, index) => {
             return (
-              <motion.a
+              <a
                 key={cert.title}
                 href={cert.href}
                 target="_blank"
                 rel="noreferrer"
-                initial={{ opacity: 0, y: 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
                 className="liquid-glass glass-edge group grid grid-cols-1 gap-6 overflow-hidden rounded-[1.75rem] p-5 transition-all duration-500 hover:-translate-y-1 hover:border-white/25 hover:shadow-[0_25px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] sm:grid-cols-[200px_1fr] sm:gap-10 sm:p-6"
               >
                 {/* Preview del certificado — discreto, sin gradientes */}
@@ -108,10 +110,10 @@ export function Certifications() {
                     <ArrowUpRight className="size-4" />
                   </span>
                 </div>
-              </motion.a>
+              </a>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

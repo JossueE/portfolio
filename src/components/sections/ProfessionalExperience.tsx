@@ -135,7 +135,7 @@ function ExperienceCard({
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip text-[10px] uppercase tracking-[0.18em]">
+                  <span className="text-sm font-medium uppercase tracking-[0.14em] text-accent/70">
                     {experience.company}
                   </span>
                   {experience.stack.map((tech) => (
