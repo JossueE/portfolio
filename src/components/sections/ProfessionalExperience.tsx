@@ -69,10 +69,16 @@ export function ProfessionalExperience() {
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12">
         <header className="flex flex-col gap-6">
-          <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60"
+          >
             <span className="size-1 rounded-full bg-accent/70" />
             Experience
-          </span>
+          </motion.span>
 
           <div className="flex max-w-3xl flex-col gap-5">
             <motion.h2
@@ -84,10 +90,16 @@ export function ProfessionalExperience() {
             >
               Where I&apos;ve built things.
             </motion.h2>
-            <p className="text-pretty text-base leading-relaxed text-muted/70 sm:text-lg">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+              className="text-pretty text-base leading-relaxed text-muted/70 sm:text-lg"
+            >
               Hands-on engineering work across robotics, embedded control,
               validation, partner-facing execution, and deployable systems.
-            </p>
+            </motion.p>
           </div>
         </header>
 

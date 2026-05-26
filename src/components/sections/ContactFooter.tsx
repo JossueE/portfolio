@@ -40,9 +40,9 @@ export function ContactFooter() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-white/45"
+          className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-white/45"
         >
-          <span className="size-1 rounded-full bg-accent/80" />
+          <span className="size-1 rounded-full bg-accent/70" />
           Contact
         </motion.span>
 

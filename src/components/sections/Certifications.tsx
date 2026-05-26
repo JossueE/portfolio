@@ -45,10 +45,16 @@ export function Certifications() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-14">
         {/* Header mínimo, consistente con el resto */}
         <div className="flex flex-col gap-6">
-          <span className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60">
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.28em] text-muted/60"
+          >
             <span className="size-1 rounded-full bg-accent/70" />
             Certifications
-          </span>
+          </motion.span>
           <div className="flex max-w-3xl flex-col gap-5">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
