@@ -3,7 +3,8 @@ export type ProjectCategory =
   | "Planning"
   | "Control"
   | "Simulation"
-  | "Robotics";
+  | "Robotics"
+  | "Software";
 
 export type ProjectLink = {
   label: string;
@@ -16,6 +17,11 @@ export type PipelineStep = {
   description: string;
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -26,6 +32,7 @@ export type Project = {
   github: string[];
   demo?: string;
   youtubeId?: string;
+  images?: ProjectImage[];
   problem: string;
   solution: string;
   architecture: string;
@@ -38,6 +45,89 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: "open-pods",
+    title: "OpenPods",
+    tagline: "AirPods, native on Linux",
+    description:
+      "A Linux desktop experience for AirPods with a polished native-feeling interface for connection status, media controls, battery visibility, and listening modes like transparency, adaptive audio, and ANC.",
+    categories: ["Software"],
+    tags: [
+      "Linux",
+      "AirPods",
+      "Bluetooth",
+      "Desktop UI",
+      "Media Controls",
+      "Battery Status",
+    ],
+    github: ["https://github.com/JossueE/open-pods"],
+    images: [
+      {
+        src: "/images/openpods-hero.png",
+        alt: "OpenPods hero interface showing AirPods controls on Linux",
+      },
+      {
+        src: "/images/openpods-desktop.png",
+        alt: "OpenPods running as a compact desktop panel on a Linux laptop",
+      },
+      {
+        src: "/images/openpods-native.png",
+        alt: "OpenPods glass interface designed to feel native on Linux",
+      },
+    ],
+    problem:
+      "AirPods can feel incomplete on Linux because the experience often lacks a native interface for connection state, battery status, playback, and noise-control modes. The hardware works, but the product experience is fragmented.",
+    solution:
+      "OpenPods brings the most important AirPods interactions into one Linux-focused desktop interface: connection awareness, media playback controls, battery status, and mode switching for off, transparency, adaptive audio, and ANC.",
+    architecture:
+      "The project is organized around a desktop UI layer that presents AirPods state clearly, with device integration logic responsible for surfacing connection, playback, battery, and listening-mode information to the interface.",
+    contribution:
+      "Designed and built the OpenPods experience, focusing on making AirPods feel like a first-class Linux device through a clean interface, familiar controls, and product-quality visual presentation.",
+    technologies: [
+      "Linux Desktop",
+      "Bluetooth Device Integration",
+      "AirPods UX",
+      "Media Controls",
+      "Battery Status",
+      "Noise Control Modes",
+    ],
+    learnings: [
+      "Native-feeling desktop tools need the same attention to visual hierarchy as the underlying device integration.",
+      "Hardware companion apps are strongest when status, controls, and feedback are visible in one compact surface.",
+      "Small interaction details can make third-party hardware feel much more integrated on Linux.",
+    ],
+    pipeline: [
+      {
+        title: "Device State",
+        description: "Detect AirPods connection and surface the active device.",
+      },
+      {
+        title: "Playback UI",
+        description: "Expose media metadata and familiar playback controls.",
+      },
+      {
+        title: "Listening Modes",
+        description: "Present off, transparency, adaptive audio, and ANC states.",
+      },
+      {
+        title: "Battery Status",
+        description: "Make battery information visible in the desktop experience.",
+      },
+      {
+        title: "Native Feel",
+        description: "Polish the interface so it feels cohesive with Linux.",
+      },
+    ],
+    highlights: [
+      "AirPods companion experience for Linux",
+      "Connection and battery status",
+      "Media playback controls",
+      "Transparency, adaptive audio, and ANC interface",
+      "Native-feeling glass desktop UI",
+      "Open-source repository",
+    ],
+    featured: true,
+  },
   {
     id: "local-llm-for-robots",
     title: "Local LLM for Robots",
@@ -429,4 +519,5 @@ export const allCategories: ProjectCategory[] = [
   "Control",
   "Simulation",
   "Robotics",
+  "Software",
 ];

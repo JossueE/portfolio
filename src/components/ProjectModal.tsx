@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Github, Play } from "lucide-react";
 import type { Project } from "@/data/projects";
@@ -75,19 +76,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </button>
 
             <div className="min-h-0 overflow-y-auto">
-              {/* Video protagonista */}
-              {project.youtubeId && (
-                <div className="relative aspect-video w-full overflow-hidden bg-black">
-                  <iframe
-                    src={youtubeEmbed(project.youtubeId)}
-                    title={`${project.title} demo`}
-                    loading="lazy"
-                    className="absolute inset-0 size-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              )}
+              <ProjectMedia project={project} />
 
               {/* Contenido editorial — generoso, sin cajas ni iconos */}
               <div className="flex flex-col gap-12 p-7 sm:p-10 lg:p-12">
@@ -222,6 +211,61 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
       )}
     </AnimatePresence>,
     document.body
+  );
+}
+
+function ProjectMedia({ project }: { project: Project }) {
+  if (project.youtubeId) {
+    return (
+      <div className="relative aspect-video w-full overflow-hidden bg-black">
+        <iframe
+          src={youtubeEmbed(project.youtubeId)}
+          title={`${project.title} demo`}
+          loading="lazy"
+          className="absolute inset-0 size-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  if (!project.images?.length) return null;
+
+  const [cover, ...gallery] = project.images;
+
+  return (
+    <div className="bg-black">
+      <div className="relative aspect-video w-full overflow-hidden">
+        <Image
+          src={cover.src}
+          alt={cover.alt}
+          fill
+          sizes="(min-width: 768px) 768px, 100vw"
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      {gallery.length > 0 && (
+        <div className="grid grid-cols-2 gap-1 border-t border-white/10 bg-black p-1 sm:grid-cols-2">
+          {gallery.map((image) => (
+            <div
+              key={image.src}
+              className="relative aspect-video overflow-hidden bg-white/[0.03]"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(min-width: 768px) 384px, 50vw"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

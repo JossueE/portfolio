@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Github, Play, Search } from "lucide-react";
+import { ArrowUpRight, Github, Images, Play, Search } from "lucide-react";
 import { ProjectModal } from "@/components/ProjectModal";
 import { projects, type Project } from "@/data/projects";
 import { youtubeThumb } from "@/lib/utils";
@@ -123,6 +123,14 @@ function ProjectCard({
   index: number;
   onOpen: (project: Project) => void;
 }) {
+  const thumbnail = project.youtubeId
+    ? youtubeThumb(project.youtubeId)
+    : project.images?.[0]?.src;
+  const thumbnailAlt = project.youtubeId
+    ? `${project.title} demo thumbnail`
+    : project.images?.[0]?.alt ?? `${project.title} project image`;
+  const MediaIcon = project.youtubeId ? Play : Images;
+
   return (
     <motion.article
       layout
@@ -153,10 +161,10 @@ function ProjectCard({
           aria-label={`Open ${project.title} details`}
           className="relative block aspect-[16/9] w-full overflow-hidden border-b border-edge/10 bg-black"
         >
-          {project.youtubeId && (
+          {thumbnail && (
             <Image
-              src={youtubeThumb(project.youtubeId)}
-              alt={`${project.title} demo thumbnail`}
+              src={thumbnail}
+              alt={thumbnailAlt}
               fill
               sizes="(min-width: 1280px) 360px, (min-width: 768px) 50vw, 100vw"
               className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.04]"
@@ -178,7 +186,7 @@ function ProjectCard({
           </span>
 
           <span className="absolute bottom-4 right-4 inline-flex size-12 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white shadow-glass-sm backdrop-blur-xl transition-all duration-500 group-hover:border-white/45 group-hover:bg-white/20 group-hover:text-white">
-            <Play className="size-5 translate-x-[1px]" />
+            <MediaIcon className="size-5" />
           </span>
         </button>
 
